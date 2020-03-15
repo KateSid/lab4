@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,11 +16,11 @@ import java.util.ArrayList;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_artist", updatable = false, nullable = false)
+    @Column(name = "id_artist")
     private int idArtist;
-    @Column(name = "name_artist", length = 50, nullable = false)
+    @Column(name = "name_artist")
     private String nameArtist;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Artist")
-    private ArrayList<Album> albums;
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Album.class,mappedBy = "artist")
+    private Set<Album> albums= new HashSet<>();
 
 }

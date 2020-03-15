@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,16 +15,16 @@ import java.util.ArrayList;
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_album", updatable = false, nullable = false)
+    @Column(name = "id_album", nullable = false)
     private int idAlbum;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="id_artist")
     private Artist artist;
     @Column(name = "name_album", length = 50, nullable = false)
     private String nameAlbum;
     @Column(name = "genre", length = 50, nullable = false)
     private String genre;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Album")
-    private ArrayList<Composition> compositions;
+    @OneToMany( fetch = FetchType.LAZY, targetEntity = Composition.class,mappedBy = "album")
+    private List<Composition> compositions;
 
 }

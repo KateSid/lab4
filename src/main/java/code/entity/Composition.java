@@ -16,7 +16,7 @@ public class Composition {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_composition", updatable = false, nullable = false)
     private int idComposition;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="id_album")
     private Album album;
     @Column(name = "name_composition", length = 50, nullable = false)

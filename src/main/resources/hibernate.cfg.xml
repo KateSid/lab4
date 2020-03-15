@@ -10,10 +10,10 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/MusicShop</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">11</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <!-- Annotated entity classes -->
+        <mapping class="code.entity.Artist"/>
         <mapping class="code.entity.Album"/>
         <mapping class="code.entity.Composition"/>
-        <mapping class="code.entity.Artist"/>
     </session-factory>
 </hibernate-configuration>

@@ -3,6 +3,9 @@ package code.DAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
@@ -32,11 +35,16 @@ public class HibernateAnnotationUtil {
     }
 
     private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
+
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml").build();
+        Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+        return metadata.getSessionFactoryBuilder().build();
+     /*   Configuration configuration = new Configuration().configure();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
-        return sessionFactory;
+        return sessionFactory;*/
     }
 
     public Session getCurrentSession() {
