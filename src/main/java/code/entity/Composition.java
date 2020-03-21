@@ -1,8 +1,6 @@
 package code.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,7 +18,8 @@ public class Composition {
     @JoinColumn(name="id_album")
     private Album album;
     @Column(name = "name_composition", length = 50, nullable = false)
-    private int nameComposition;
+    private String nameComposition;
     @Column(name = "duration", length = 50, nullable = false)
     private int duration;
+
 }

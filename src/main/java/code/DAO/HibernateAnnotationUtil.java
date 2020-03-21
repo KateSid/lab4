@@ -11,8 +11,11 @@ import org.hibernate.cfg.Configuration;
 
 public class HibernateAnnotationUtil {
     private Session currentSession;
-
     private Transaction currentTransaction;
+    private static  StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+            .configure("hibernate.cfg.xml").build();
+    private static Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+    private static SessionFactory sessionFactory=metadata.getSessionFactoryBuilder().build();
 
     public Session openCurrentSession() {
         currentSession = getSessionFactory().openSession();
@@ -35,17 +38,21 @@ public class HibernateAnnotationUtil {
     }
 
     private static SessionFactory getSessionFactory() {
-
-        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml").build();
-        Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-        return metadata.getSessionFactoryBuilder().build();
+        if (sessionFactory==null){
+            standardRegistry = new StandardServiceRegistryBuilder()
+                    .configure("hibernate.cfg.xml").build();
+            metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
+            metadata.getSessionFactoryBuilder().build();
+        }
+        return sessionFactory;
      /*   Configuration configuration = new Configuration().configure();
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
         SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
         return sessionFactory;*/
     }
+
+
 
     public Session getCurrentSession() {
         return currentSession;

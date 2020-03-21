@@ -1,11 +1,14 @@
 package code.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,7 +27,7 @@ public class Album {
     private String nameAlbum;
     @Column(name = "genre", length = 50, nullable = false)
     private String genre;
-    @OneToMany( fetch = FetchType.LAZY, targetEntity = Composition.class,mappedBy = "album")
-    private List<Composition> compositions;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Composition.class,mappedBy = "album")
+    private Set<Composition> compositions= new HashSet<>();
 
 }

@@ -1,5 +1,6 @@
 package code.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_artist")
     private int idArtist;
-    @Column(name = "name_artist")
+    @Column(name = "name_artist", unique=true)
     private String nameArtist;
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Album.class,mappedBy = "artist")
     private Set<Album> albums= new HashSet<>();

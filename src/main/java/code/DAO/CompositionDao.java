@@ -1,19 +1,31 @@
 package code.DAO;
 
 import code.entity.Composition;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.Optional;
 
+
 public class CompositionDao implements Dao<Composition> {
-    HibernateAnnotationUtil hibernateAnnotationUtil;
+    HibernateAnnotationUtil hibernateAnnotationUtil=new HibernateAnnotationUtil();
     @Override
-    public Optional<Composition> get(int id) {
+    public Composition get(int id) {
         hibernateAnnotationUtil.openCurrentSession();
         hibernateAnnotationUtil.getCurrentSession();
         Composition composition=hibernateAnnotationUtil.getCurrentSession().load(Composition.class, id);
         hibernateAnnotationUtil.closeCurrentSession();
-        return Optional.ofNullable(composition);
+        return composition;
+    }
+    @Override
+    public Composition getByName(String name)  {
+        hibernateAnnotationUtil.openCurrentSession();
+        Composition composition=null;
+        composition = (Composition) hibernateAnnotationUtil.getCurrentSession().createCriteria(Composition.class)
+                .add(Restrictions.eq("nameComposition", name)).uniqueResult();
+        hibernateAnnotationUtil.closeCurrentSession();
+        return composition;
     }
 
     @Override

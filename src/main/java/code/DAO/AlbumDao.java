@@ -1,6 +1,8 @@
 package code.DAO;
 
 import code.entity.Album;
+import org.hibernate.criterion.Restrictions;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +10,22 @@ public class AlbumDao implements Dao<Album> {
     HibernateAnnotationUtil hibernateAnnotationUtil=new HibernateAnnotationUtil();
 
     @Override
-    public Optional<Album> get(int id) {
+    public Album get(int id) {
         hibernateAnnotationUtil.openCurrentSession();
         hibernateAnnotationUtil.getCurrentSession();
         Album album=hibernateAnnotationUtil.getCurrentSession().load(Album.class, id);
         hibernateAnnotationUtil.closeCurrentSession();
-        return Optional.ofNullable(album);
+        return album;
+    }
+    @Override
+    public Album getByName(String name)  {
+        hibernateAnnotationUtil.openCurrentSession();
+        Album album=null;
+        album = (Album) hibernateAnnotationUtil.getCurrentSession().createCriteria(Album.class)
+                .add(Restrictions.eq("nameAlbum", name)).uniqueResult();
+//        Album album=hibernateAnnotationUtil.getCurrentSession().load(Album.class, name);
+        hibernateAnnotationUtil.closeCurrentSession();
+        return album;
     }
 
     @Override
