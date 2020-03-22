@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Application {
+    private static CompositionDao compositionDao=new CompositionDao();
 
     private static void init(String nameComposition,int duration,  String nameAlbum, String genre, String nameArtist){
         Album album=new Album();
@@ -41,27 +42,28 @@ public class Application {
         artistDao.save(artist);
     }
 
+    private static void printCompositions(){
+        List<Composition> compositions=compositionDao.getAll();
+        for (Composition composition:compositions) {
+            System.out.println("Duration: "+composition.getDuration()+" Name: "+composition.getNameComposition());
+        }
+    }
+
     public static void main(String[] args){
         init("Shape Of My Heart", 5, "Aerosmith", "Rock", "Aerosmith" );
         init("Dream On", 5, "Ten Summoner’s Tales", "Rock", "Sting" );
         init("Now or Never", 4, "The Drug In Me Is Reimagined", "PostHardcore", "Falling In Reverse" );
         init("The Drug In Me Is You", 6, "Radioactivity", "Pop", "Age of Days" );
         init("The Sound of Madness", 4, "The Sound of Madness", "Hard-rock", "Shinedown" );
-        CompositionDao compositionDao=new CompositionDao();
+        printCompositions();
         AlbumDao albumDao=new AlbumDao();
-        List<Composition> compositions=compositionDao.getAll();
-        for (Composition composition:compositions) {
-            System.out.println("Duration: "+composition.getDuration()+" Name: "+composition.getNameComposition());
-        }
         compositionDao.save(new Composition(albumDao.getByName("Aerosmith"), "Crazy", 8));
-      /*  Composition composition=new Composition();
-        composition.setDuration(8);
-        composition.setNameComposition("Crazy");
-
-        Album album=
-        composition.setAlbum(album);
-        albumDao.update(album);*/
-//        compositionDao.save(composition);
+        printCompositions();
         compositionDao.delete(compositionDao.getByName("Shape Of My Heart"));
+        printCompositions();
+        Composition composition =compositionDao.getByName("Crazy");
+        composition.setNameComposition("Shape Of My Heart");
+        compositionDao.update(composition);
+        printCompositions();
     }
 }

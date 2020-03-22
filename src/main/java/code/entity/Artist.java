@@ -21,7 +21,8 @@ public class Artist {
     private int idArtist;
     @Column(name = "name_artist", unique=true)
     private String nameArtist;
-    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Album.class,mappedBy = "artist")
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="id_artist")
     private Set<Album> albums= new HashSet<>();
 
     public Artist(String nameArtist, Set<Album> albums) {
