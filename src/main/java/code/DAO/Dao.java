@@ -8,6 +8,7 @@ public interface Dao<T> {
     Object getByName(String name);
     List<T> getAll();
     void save(T t);
-    void update(T t, String[] params);
+    void update(T t);
     void delete(T t);
+    void saveOrUpdate(T t);
 }

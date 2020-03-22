@@ -30,4 +30,10 @@ public class Album {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Composition.class,mappedBy = "album")
     private Set<Composition> compositions= new HashSet<>();
 
+    public Album(Artist artist, String nameAlbum, String genre, Set<Composition> compositions) {
+        this.artist = artist;
+        this.nameAlbum = nameAlbum;
+        this.genre = genre;
+        this.compositions = compositions;
+    }
 }

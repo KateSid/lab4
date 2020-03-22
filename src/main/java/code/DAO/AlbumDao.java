@@ -45,7 +45,7 @@ public class AlbumDao implements Dao<Album> {
     }
 
     @Override
-    public void update(Album album, String[] params) {
+    public void update(Album album) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().update(album);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
@@ -55,6 +55,13 @@ public class AlbumDao implements Dao<Album> {
     public void delete(Album album) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().delete(album);
+        hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
+    }
+
+    @Override
+    public void saveOrUpdate(Album album) {
+        hibernateAnnotationUtil.openCurrentSessionwithTransaction();
+        hibernateAnnotationUtil.getCurrentSession().saveOrUpdate(album);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
     }
 }

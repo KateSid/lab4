@@ -48,21 +48,20 @@ public class Application {
         init("The Drug In Me Is You", 6, "Radioactivity", "Pop", "Age of Days" );
         init("The Sound of Madness", 4, "The Sound of Madness", "Hard-rock", "Shinedown" );
         CompositionDao compositionDao=new CompositionDao();
+        AlbumDao albumDao=new AlbumDao();
         List<Composition> compositions=compositionDao.getAll();
         for (Composition composition:compositions) {
             System.out.println("Duration: "+composition.getDuration()+" Name: "+composition.getNameComposition());
         }
-        Composition composition=new Composition();
+        compositionDao.save(new Composition(albumDao.getByName("Aerosmith"), "Crazy", 8));
+      /*  Composition composition=new Composition();
         composition.setDuration(8);
         composition.setNameComposition("Crazy");
-        ArtistDao artistDao=new ArtistDao();
-        Artist artist=artistDao.getByName("Aerosmith");
-        artist.getAlbums();
 
-        AlbumDao albumDao=new AlbumDao();
-        Album album=albumDao.getByName("Aerosmith");
+        Album album=
         composition.setAlbum(album);
-        compositionDao.save(composition);
+        albumDao.update(album);*/
+//        compositionDao.save(composition);
         compositionDao.delete(compositionDao.getByName("Shape Of My Heart"));
     }
 }

@@ -22,4 +22,9 @@ public class Composition {
     @Column(name = "duration", length = 50, nullable = false)
     private int duration;
 
+    public Composition(Album album, String nameComposition, int duration) {
+        this.album = album;
+        this.nameComposition = nameComposition;
+        this.duration = duration;
+    }
 }

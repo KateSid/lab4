@@ -24,4 +24,8 @@ public class Artist {
     @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Album.class,mappedBy = "artist")
     private Set<Album> albums= new HashSet<>();
 
+    public Artist(String nameArtist, Set<Album> albums) {
+        this.nameArtist = nameArtist;
+        this.albums = albums;
+    }
 }

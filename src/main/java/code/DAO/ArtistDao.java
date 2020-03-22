@@ -45,7 +45,7 @@ public class ArtistDao implements Dao<Artist> {
     }
 
     @Override
-    public void update(Artist artist, String[] params) {
+    public void update(Artist artist) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().update(artist);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
@@ -55,6 +55,13 @@ public class ArtistDao implements Dao<Artist> {
     public void delete(Artist artist) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().delete(artist);
+        hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
+    }
+
+    @Override
+    public void saveOrUpdate(Artist artist) {
+        hibernateAnnotationUtil.openCurrentSessionwithTransaction();
+        hibernateAnnotationUtil.getCurrentSession().saveOrUpdate(artist);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
     }
 }

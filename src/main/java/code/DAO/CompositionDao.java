@@ -45,7 +45,7 @@ public class CompositionDao implements Dao<Composition> {
     }
 
     @Override
-    public void update(Composition composition, String[] params) {
+    public void update(Composition composition) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().update(composition);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
@@ -55,6 +55,13 @@ public class CompositionDao implements Dao<Composition> {
     public void delete(Composition composition) {
         hibernateAnnotationUtil.openCurrentSessionwithTransaction();
         hibernateAnnotationUtil.getCurrentSession().delete(composition);
+        hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
+    }
+
+    @Override
+    public void saveOrUpdate(Composition composition) {
+        hibernateAnnotationUtil.openCurrentSessionwithTransaction();
+        hibernateAnnotationUtil.getCurrentSession().saveOrUpdate(composition);
         hibernateAnnotationUtil.closeCurrentSessionwithTransaction();
     }
 }
