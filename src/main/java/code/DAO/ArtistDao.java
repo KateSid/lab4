@@ -4,28 +4,27 @@ package code.DAO;
 import code.entity.Artist;
 import org.hibernate.criterion.Restrictions;
 import java.util.List;
+import java.util.Optional;
 
 public class ArtistDao implements Dao<Artist> {
     HibernateAnnotationUtil hibernateAnnotationUtil=new HibernateAnnotationUtil();
     @Override
-    public Artist get(int id) {
+    public Optional<Artist> get(int id) {
         hibernateAnnotationUtil.openCurrentSession();
         hibernateAnnotationUtil.getCurrentSession();
         Artist artist=hibernateAnnotationUtil.getCurrentSession().load(Artist.class, id);
         hibernateAnnotationUtil.closeCurrentSession();
-        return artist;
+        return Optional.ofNullable(artist);
     }
 
     @Override
-    public Artist getByName(String name)  {
+    public Optional<Artist> getByName(String name)  {
         hibernateAnnotationUtil.openCurrentSession();
         Artist artist=null;
         artist = (Artist) hibernateAnnotationUtil.getCurrentSession().createCriteria(Artist.class)
                 .add(Restrictions.eq("nameArtist", name)).uniqueResult();
-      //  hibernateAnnotationUtil.getCurrentSession();
-       // Artist artist=hibernateAnnotationUtil.getCurrentSession().load(Artist.class, name);
         hibernateAnnotationUtil.closeCurrentSession();
-        return artist;
+        return Optional.ofNullable(artist);
     }
 
     @Override

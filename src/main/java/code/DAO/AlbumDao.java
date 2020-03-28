@@ -10,22 +10,21 @@ public class AlbumDao implements Dao<Album> {
     HibernateAnnotationUtil hibernateAnnotationUtil=new HibernateAnnotationUtil();
 
     @Override
-    public Album get(int id) {
+    public Optional<Album> get(int id) {
         hibernateAnnotationUtil.openCurrentSession();
         hibernateAnnotationUtil.getCurrentSession();
         Album album=hibernateAnnotationUtil.getCurrentSession().load(Album.class, id);
         hibernateAnnotationUtil.closeCurrentSession();
-        return album;
+        return Optional.ofNullable(album);
     }
     @Override
-    public Album getByName(String name)  {
+    public Optional<Album> getByName(String name)  {
         hibernateAnnotationUtil.openCurrentSession();
         Album album=null;
         album = (Album) hibernateAnnotationUtil.getCurrentSession().createCriteria(Album.class)
                 .add(Restrictions.eq("nameAlbum", name)).uniqueResult();
-//        Album album=hibernateAnnotationUtil.getCurrentSession().load(Album.class, name);
         hibernateAnnotationUtil.closeCurrentSession();
-        return album;
+        return Optional.ofNullable(album);
     }
 
     @Override

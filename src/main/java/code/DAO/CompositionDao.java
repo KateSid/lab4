@@ -11,21 +11,21 @@ import java.util.Optional;
 public class CompositionDao implements Dao<Composition> {
     HibernateAnnotationUtil hibernateAnnotationUtil=new HibernateAnnotationUtil();
     @Override
-    public Composition get(int id) {
+    public Optional<Composition> get(int id) {
         hibernateAnnotationUtil.openCurrentSession();
         hibernateAnnotationUtil.getCurrentSession();
         Composition composition=hibernateAnnotationUtil.getCurrentSession().load(Composition.class, id);
         hibernateAnnotationUtil.closeCurrentSession();
-        return composition;
+        return Optional.ofNullable(composition);
     }
     @Override
-    public Composition getByName(String name)  {
+    public Optional<Composition> getByName(String name)  {
         hibernateAnnotationUtil.openCurrentSession();
         Composition composition=null;
         composition = (Composition) hibernateAnnotationUtil.getCurrentSession().createCriteria(Composition.class)
                 .add(Restrictions.eq("nameComposition", name)).uniqueResult();
         hibernateAnnotationUtil.closeCurrentSession();
-        return composition;
+        return Optional.ofNullable(composition);
     }
 
     @Override
