@@ -57,11 +57,11 @@ public class Application {
         init("The Sound of Madness", 4, "The Sound of Madness", "Hard-rock", "Shinedown" );
         printCompositions();
         AlbumDao albumDao=new AlbumDao();
-        compositionDao.save(new Composition(albumDao.getByName("Aerosmith"), "Crazy", 8));
+        compositionDao.save(new Composition(albumDao.getByName("Aerosmith").get(), "Crazy", 8));
         printCompositions();
-        compositionDao.delete(compositionDao.getByName("Shape Of My Heart"));
+        compositionDao.delete(compositionDao.getByName("Shape Of My Heart").get());
         printCompositions();
-        Composition composition =compositionDao.getByName("Crazy");
+        Composition composition =compositionDao.getByName("Crazy").get();
         composition.setNameComposition("Shape Of My Heart");
         compositionDao.update(composition);
         printCompositions();
